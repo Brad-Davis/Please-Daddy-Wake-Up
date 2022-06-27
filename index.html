@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Potta+One&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <title>Too Loud!</title>
+</head>
+
+<body>
+    <video id="sleepVid">
+        <source src="./videos/sleepVid.mp4" type="video/mp4">
+        Your browser does not support HTML video.
+    </video>
+    <video id="quietVid">
+        <source src="./videos/quietVid.mp4" type="video/mp4">
+        Your browser does not support HTML video.
+    </video>
+    <video id="loudVid">
+        <!-- <source src="mov_bbb.mp4" type="video/mp4">
+        <source src="mov_bbb.ogg" type="video/ogg">
+        Your browser does not support HTML video. -->
+    </video>
+    <video id="wakeVid">
+        <!-- <source src="mov_bbb.mp4" type="video/mp4">
+        <source src="mov_bbb.ogg" type="video/ogg">
+        Your browser does not support HTML video. -->
+    </video>
+    <h3>PLEASE SPEAK KINDLY</h3>
+    <p id="reaction"></p>
+    <div id="volume-visualizer"></div>
+    <div id="modal">
+        <h1>Wake Up Papa</h1>
+        <img alt="dad's face" src="" />
+        <div ontouchstart="">
+            <div class="button">
+                <a href="#" id="start">Start!</a>
+            </div>
+        </div>
+        <h4>Made by <a href="https://alexvrahas.com/">Alex Vrahas</a> and <a href="https://bradcampdavis.com/">Brad
+                Davis</a></h4>
+        <p class="subtext">You will need to allow audio access</p>
+    </div>
+
+    <div id="output">
+        <div class="bubble">hello</div>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="tooLoud.js"></script>
+</body>
+
+</html>
