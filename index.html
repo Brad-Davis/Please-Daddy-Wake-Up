@@ -9,37 +9,37 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Potta+One&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
-    <title>Too Loud!</title>
+    <title>Please Wake Up Daddy!</title>
 </head>
 
 <body>
-    <video id="sleepVid">
-        <source src="./videos/sleepVid.mp4" type="video/mp4">
+    <video id="sleepVid" loop>
+        <source src="./videos/1.mp4" type="video/mp4">
         Your browser does not support HTML video.
     </video>
-    <video id="quietVid">
-        <source src="./videos/quietVid.mp4" type="video/mp4">
+    <video id="quietVid" loop>
+        <source src="./videos/2.mp4" type="video/mp4">
         Your browser does not support HTML video.
     </video>
-    <video id="loudVid">
-        <!-- <source src="mov_bbb.mp4" type="video/mp4">
-        <source src="mov_bbb.ogg" type="video/ogg">
-        Your browser does not support HTML video. -->
+    <video id="loudVid" loop>
+        <source src="./videos/3.mp4" type="video/mp4">
+        Your browser does not support HTML video.
     </video>
     <video id="wakeVid">
-        <!-- <source src="mov_bbb.mp4" type="video/mp4">
-        <source src="mov_bbb.ogg" type="video/ogg">
-        Your browser does not support HTML video. -->
+        <source src="./videos/4.mp4" type="video/mp4">
+        Your browser does not support HTML video.
     </video>
-    <h3>PLEASE SPEAK KINDLY</h3>
     <p id="reaction"></p>
     <div id="volume-visualizer"></div>
     <div id="modal">
-        <h1>Wake Up Papa</h1>
+        <h1 id="daddyTitle">Please Wake Up Daddy!</h1>
         <img alt="dad's face" src="" />
         <div ontouchstart="">
-            <div class="button">
+            <div class="button" id="Start">
                 <a href="#" id="start">Start!</a>
+            </div>
+            <div class="button" id="PlayAgain">
+                <a href="/" id="start">Play Again?</a>
             </div>
         </div>
         <h4>Made by <a href="https://alexvrahas.com/">Alex Vrahas</a> and <a href="https://bradcampdavis.com/">Brad
@@ -48,7 +48,6 @@
     </div>
 
     <div id="output">
-        <div class="bubble">hello</div>
     </div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="tooLoud.js"></script>

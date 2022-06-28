@@ -78,55 +78,79 @@ function showModal() {
     document.getElementById('modal').style.display = 'block'
 }
 
+let curVolRangeAvg = 0.0;
 
 function loudnessAnalysis(volume) {
     let curVolRange;
     if (volume < 20) {
         curVolRange = 0;
-    } else if (volume < 40) {
-        curVolRange = 1;
     } else if (volume < 60) {
-        curVolRange = 2;
+        curVolRange = 1;
     } else if (volume < 80) {
-        curVolRange = 3;
+        curVolRange = 2;
     } else {
-        curVolRange = 4;
+        curVolRange = 3.5;
     }
 
+    curVolRangeAvg += curVolRange
+    curVolRangeAvg /= 2;
+    curVolRange = Math.floor(curVolRangeAvg)
+
+    // console.log("Cur floor " + curVolRange);
+    // console.log(curVolRangeAvg);
+
+
+
     if (volRange != curVolRange) {
-        if (timeAtDifVol > 10) {
+        if (timeAtDifVol > 20) {
             timeAtVol = 0;
             timeAtDifVol = 0;
-            volRange = curVolRange;
-            console.log(volume);
+            if (volRange > curVolRange) {
+                volRange -= 1;
+            } else {
+                volRange += 1;
+            }
+
+            curVolRange = volRange;
             setReaction(volRange);
+            console.log(volRange);
         } else {
             timeAtDifVol++;
             timeAtVol
         }
 
     }
-    timeAtVol++;
+    // timeAtVol++;
 }
 
-
+let prevRange;
+let daddyWoke = false;
 function setReaction(range) {
     console.log(range);
     const reactionBox = document.getElementById('reaction');
-    if (range === 0) {
-        reactionBox.innerHTML = "Thank you";
-        // document.body.className = ""
-
-    } else if (range === 1) {
-        reactionBox.innerHTML = "Slightly quieter please";
-        // document.body.className = ""
-    } else if (range === 2) {
-        reactionBox.innerHTML = "Too loud";
-        // document.body.className = "lilShake";
-    } else {
-        reactionBox.innerHTML = "GET OUT PLEASE GET AWAY";
-        document.body.style.animation = "";
-        // document.body.className = "bigShake"
+    if (!daddyWoke) {
+        if (range === 0) {
+            reactionBox.innerHTML = "Slightly quieter please";
+            startVid(0);
+            // document.body.className = ""
+        } else if (range === 1) {
+            reactionBox.innerHTML = "Slightly quieter please";
+            prevRange = 1;
+            startVid(1)
+            // document.body.className = ""
+        } else if (range === 2) {
+            reactionBox.innerHTML = "Too loud";
+            startVid(2);
+            prevRange = 2;
+            // document.body.className = "lilShake";
+        } else {
+            reactionBox.innerHTML = "GET OUT PLEASE GET AWAY";
+            document.body.style.animation = "";
+            prevRange = 3;
+            startVid(3);
+            daddyWoke = true;
+            // document.body.className = "bigShake"
+        }
     }
 }
 
@@ -226,14 +250,36 @@ Overriding videos might be difficult need wait for a little while so stop
 */
 const sleepVid = document.getElementById("sleepVid");
 const quietVid = document.getElementById("quietVid");
-// const loudVid = document.getElementById("loudVid");
-// const wakeVid = document.getElementById("WakeVid");
+const loudVid = document.getElementById("loudVid");
+const wakeVid = document.getElementById("wakeVid");
+
+const allVids = [sleepVid, quietVid, loudVid, wakeVid];
+
 function startVideo() {
-    sleepVid.play();
+    startVid(0);
 }
 
-function startVid(vidName) {
-    const vid = document.getElementById(vidName);
-    vid.style.visibility = "unset";
+function startVid(vidIndex) {
+    const vid = allVids[vidIndex];
+    allVids.forEach((vid, index) => {
+        if (vidIndex != index) {
+            vid.style.visibility = "hidden"
+            vid.pause();
+        } else {
+            vid.style.visibility = "unset";
+        }
+    });
+
+
     vid.play();
+
+    //final video
+    if (vidIndex === 3) {
+        vid.onended = showModalOnWin;
+    }
+}
+
+function showModalOnWin() {
+    document.getElementById("daddyTitle").innerHTML = "Thanks For Waking Papa <3 <br> I thought for sure he was dead."
+    showModal();
 }
