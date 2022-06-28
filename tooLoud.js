@@ -113,7 +113,6 @@ function loudnessAnalysis(volume) {
 
             curVolRange = volRange;
             setReaction(volRange);
-            console.log(volRange);
         } else {
             timeAtDifVol++;
             timeAtVol
@@ -126,26 +125,20 @@ function loudnessAnalysis(volume) {
 let prevRange;
 let daddyWoke = false;
 function setReaction(range) {
-    console.log(range);
     const reactionBox = document.getElementById('reaction');
     if (!daddyWoke) {
         if (range === 0) {
-            reactionBox.innerHTML = "Slightly quieter please";
             startVid(0);
             // document.body.className = ""
         } else if (range === 1) {
-            reactionBox.innerHTML = "Slightly quieter please";
             prevRange = 1;
             startVid(1)
             // document.body.className = ""
         } else if (range === 2) {
-            reactionBox.innerHTML = "Too loud";
             startVid(2);
             prevRange = 2;
             // document.body.className = "lilShake";
         } else {
-            reactionBox.innerHTML = "GET OUT PLEASE GET AWAY";
-            document.body.style.animation = "";
             prevRange = 3;
             startVid(3);
             daddyWoke = true;
@@ -261,6 +254,7 @@ function startVideo() {
 
 function startVid(vidIndex) {
     const vid = allVids[vidIndex];
+    console.log(vidIndex)
     allVids.forEach((vid, index) => {
         if (vidIndex != index) {
             vid.style.visibility = "hidden"
