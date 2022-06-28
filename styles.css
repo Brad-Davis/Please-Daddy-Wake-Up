@@ -113,11 +113,11 @@ h3 {
     text-align: center;
     background-color: black;
     opacity: 1;
-    -moz-transition: all 0.4s ease-out;  /* FF4+ */
-    -o-transition: all 0.4s ease-out;  /* Opera 10.5+ */
-    -webkit-transition: all 0.4s ease-out;  /* Saf3.2+, Chrome */
-    -ms-transition: all 0.4s ease-out;  /* IE10? */
-    transition: all 0.4s ease-out;  
+    -moz-transition: opacity 0.4s ease-out;  /* FF4+ */
+    -o-transition: opacity 0.4s ease-out;  /* Opera 10.5+ */
+    -webkit-transition: opacity 0.4s ease-out;  /* Saf3.2+, Chrome */
+    -ms-transition: opacity 0.4s ease-out;  /* IE10? */
+    transition: opacity 0.4s ease-out;  
     border: 0.5em solid white;
     z-index: 5;
     color: white;
@@ -243,6 +243,11 @@ h3 {
 
 #start{
 
+}
+
+#modal h4 a{
+    color: white;
+    font-weight: bold;
 }
 
 #PlayAgain{

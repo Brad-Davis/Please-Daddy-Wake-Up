@@ -3,7 +3,7 @@
     let volumeInterval = null;
     const volumeVisualizer = document.getElementById('volume-visualizer');
     const startButton = document.getElementById('start');
-    const stopButton = document.getElementById('stop');
+    const playAgainButton = document.getElementById('playAgain');
     // Initialize
     try {
         const audioStream = await navigator.mediaDevices.getUserMedia({
@@ -52,6 +52,15 @@
         }
 
     });
+    playAgainButton.addEventListener('click', () => {
+        daddyWoke = false;
+        hideModal();
+        startVideo();
+        if (volumeCallback !== null && volumeInterval === null) {
+            volumeInterval = setInterval(volumeCallback, 100);
+            setReaction(0);
+        }
+    })
     // stopButton.addEventListener('click', () => {
     //     stopSpeechRecognition();
     //     showModal();
@@ -67,7 +76,6 @@ let timeAtDifVol = 0;
 
 function hideModal() {
     document.getElementById('modal').style.opacity = 0;
-    console.log('hide')
     setTimeout(() => {
         document.getElementById('modal').style.display = 'none'
     }, 2000);
@@ -201,7 +209,6 @@ function createWordBubble(text) {
     bubble.className = "bubble"
     bubble.innerHTML = text;
     output.appendChild(bubble);
-    console.log(text);
 }
 
 recognition.onstart = function () {
@@ -254,7 +261,6 @@ function startVideo() {
 
 function startVid(vidIndex) {
     const vid = allVids[vidIndex];
-    console.log(vidIndex)
     allVids.forEach((vid, index) => {
         if (vidIndex != index) {
             vid.style.visibility = "hidden"
@@ -267,6 +273,15 @@ function startVid(vidIndex) {
 
     vid.play();
 
+
+    /*
+    Suggestion/Idea:
+
+    Could make it so checks audio average after every loop to make animation smoother
+    so on end run set reaction based on global average
+    will also improve performace
+    */
+
     //final video
     if (vidIndex === 3) {
         vid.onended = showModalOnWin;
@@ -275,5 +290,8 @@ function startVid(vidIndex) {
 
 function showModalOnWin() {
     document.getElementById("daddyTitle").innerHTML = "Thanks For Waking Papa <3 <br> I thought for sure he was dead."
+    document.getElementById("Start").style.display = "none";
+    document.getElementById("PlayAgain").style.display = "inline-block";
     showModal();
 }
+
