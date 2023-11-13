@@ -40,6 +40,9 @@ body, html {
     body {
       font-size: 0.7em;
     }
+    #daddyTitle {
+        font-size: 0.5em;
+    }
   }
 
 video {
