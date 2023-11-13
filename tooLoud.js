@@ -27,7 +27,14 @@
                 volumeSum += volume;
             const averageVolume = volumeSum / volumes.length;
             // Value range: 127 = analyser.maxDecibels - analyser.minDecibels;
-            volumeVisualizer.style.setProperty('--volume', (averageVolume * 100 / 127) + '%');
+            //THIS SHOULD CHANGE TO SLOWLY INCREASE
+            // volumeVisualizer.style.setProperty('--volume', (averageVolume * 100 / 127) + '%');
+            if (!daddyWoke) {
+                volumeVisualizer.style.setProperty('--volume', volumeMeter + '%');
+            } else {
+                setBarWhenComplete(true);
+            }
+            
             loudnessAnalysis(averageVolume);
         };
     } catch (e) {
@@ -43,8 +50,12 @@
     }
     // Use
     startButton.addEventListener('click', () => {
+        daddyWoke = false;
         startSpeechRecognition();
         hideModal();
+        curReactionLevel = 0;
+        setBarWhenComplete(false);
+        volumeMeter = 0;
         startVideo();
         if (volumeCallback !== null && volumeInterval === null) {
             volumeInterval = setInterval(volumeCallback, 100);
@@ -55,20 +66,15 @@
     playAgainButton.addEventListener('click', () => {
         daddyWoke = false;
         hideModal();
+        volumeMeter = 0;
+        curReactionLevel = 0;
         startVideo();
+        setBarWhenComplete(false);
         if (volumeCallback !== null && volumeInterval === null) {
             volumeInterval = setInterval(volumeCallback, 100);
             setReaction(0);
         }
     })
-    // stopButton.addEventListener('click', () => {
-    //     stopSpeechRecognition();
-    //     showModal();
-    //     if (volumeInterval !== null) {
-    //         clearInterval(volumeInterval);
-    //         volumeInterval = null;
-    //     }
-    // });
 })();
 let volRange = 0;
 let timeAtVol = 0;
@@ -87,71 +93,34 @@ function showModal() {
 }
 
 let curVolRangeAvg = 0.0;
+let difficulty = 0.01;
 
 function loudnessAnalysis(volume) {
     let curVolRange;
-    if (volume < 20) {
+    if (volumeMeter > volume) {
+        volumeMeter--;
+    } else {
+        volumeMeter += volume * difficulty
+    }
+    if (volumeMeter < 20) {
         curVolRange = 0;
-    } else if (volume < 60) {
+    } else if (volumeMeter < 60) {
         curVolRange = 1;
-    } else if (volume < 80) {
+    } else if (volumeMeter < 80) {
         curVolRange = 2;
     } else {
-        curVolRange = 3.5;
+        curVolRange = 3;
     }
 
-    curVolRangeAvg += curVolRange
-    curVolRangeAvg /= 2;
-    curVolRange = Math.floor(curVolRangeAvg)
-
-    // console.log("Cur floor " + curVolRange);
-    // console.log(curVolRangeAvg);
-
-
-
-    if (volRange != curVolRange) {
-        if (timeAtDifVol > 20) {
-            timeAtVol = 0;
-            timeAtDifVol = 0;
-            if (volRange > curVolRange) {
-                volRange -= 1;
-            } else {
-                volRange += 1;
-            }
-
-            curVolRange = volRange;
-            setReaction(volRange);
-        } else {
-            timeAtDifVol++;
-            timeAtVol
-        }
-
-    }
-    // timeAtVol++;
+    setReaction(curVolRange);
 }
 
 let prevRange;
 let daddyWoke = false;
+let curReactionLevel = 0;
 function setReaction(range) {
-    const reactionBox = document.getElementById('reaction');
     if (!daddyWoke) {
-        if (range === 0) {
-            startVid(0);
-            // document.body.className = ""
-        } else if (range === 1) {
-            prevRange = 1;
-            startVid(1)
-            // document.body.className = ""
-        } else if (range === 2) {
-            startVid(2);
-            prevRange = 2;
-            // document.body.className = "lilShake";
-        } else {
-            prevRange = 3;
-            startVid(3);
-            daddyWoke = true;
-            // document.body.className = "bigShake"
-        }
+        curReactionLevel = range;
     }
 }
 
@@ -256,20 +225,33 @@ const wakeVid = document.getElementById("wakeVid");
 const allVids = [sleepVid, quietVid, loudVid, wakeVid];
 
 function startVideo() {
-    startVid(0);
+    startVid();
 }
 
-function startVid(vidIndex) {
+let curVideoPlaying = null;
+
+function startVid() {
+    let vidIndex = curReactionLevel;
+    const newVideoChance = 0.5;
+    const playVidInRange = Math.random() <= newVideoChance;
+    
+
+    if (!playVidInRange && vidIndex != 3) {
+        vidIndex = 0;
+    }
     const vid = allVids[vidIndex];
+
+    curVideoPlaying = vid;
+
     allVids.forEach((vid, index) => {
         if (vidIndex != index) {
             vid.style.visibility = "hidden"
             vid.pause();
+            vid.currentTime = 0;
         } else {
             vid.style.visibility = "unset";
         }
     });
-
 
     vid.play();
 
@@ -285,13 +267,28 @@ function startVid(vidIndex) {
     //final video
     if (vidIndex === 3) {
         vid.onended = showModalOnWin;
+        daddyWoke = true;
+    } else {
+        vid.onended = startVid;
     }
 }
 
 function showModalOnWin() {
     document.getElementById("daddyTitle").innerHTML = "Thanks For Waking Papa <3 <br> I thought for sure he was dead."
     document.getElementById("Start").style.display = "none";
+    document.getElementsByClassName('subtext')[0].style.display = "none";
     document.getElementById("PlayAgain").style.display = "inline-block";
     showModal();
 }
+
+function setBarWhenComplete(isFull) {
+    if (isFull) {
+        document.getElementById('volume-visualizer').classList.add("volume-full");
+    } else {
+        document.getElementById('volume-visualizer').classList.remove("volume-full");
+    }
+    
+}
+
+let volumeMeter = 0;
 

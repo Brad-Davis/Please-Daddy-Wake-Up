@@ -14,15 +14,16 @@ html{
    
 }
 
-body {
+body, html {
     overflow: hidden;
     /* height: 110vh; */
-    height: 100vh;
+    height: 100%;
+    max-height: 100vh;
     font-family: 'Potta One', cursive;
     /* width: 110vw; */
     width: 100vw;
     /* background-image: url(/imgs/theRoom.svg); */
-    background-color: #2B1800;
+    background-color:black;
     background-repeat: no-repeat;
     margin: 0;
     /* padding: 5vh 5vw; */
@@ -31,11 +32,13 @@ body {
     position: absolute;
     background-size: cover;
     background-position: bottom;
+    overflow: hidden;
 }
 
 video {
     min-height: 100vh;
     min-width: 100vw;
+    max-width: 280%;
     position: absolute;
     left: 50%;
     top: 50%;
@@ -66,13 +69,17 @@ video {
     transition: width 100ms linear;
 }
 
+.volume-full {
+    --volume: 100% !important;
+}
+
 h3 {
     margin: 20px;
     font-family: sans-serif;
 }
 
 #output {
-    height: 100vh;
+    min-height: 100%;
     width: 100vw;
     left: 0;
     top: 0;
@@ -140,8 +147,9 @@ h3 {
 }
 
 #modal img{
-    width: 20em;
+    max-width: 20em;
     border-radius: 50%;
+    width: 100%;
 }
 
 .button a{
