@@ -52,7 +52,7 @@
     startButton.addEventListener('click', () => {
         daddyWoke = false;
         difficulty = (100-document.getElementById('difSlider').value)/400
-        startSpeechRecognition();
+        // startSpeechRecognition();
         hideModal();
         curReactionLevel = 0;
         setBarWhenComplete(false);
@@ -140,72 +140,72 @@ catch (e) {
 let noteContent = '';
 
 
-/*-----------------------------
-      Voice Recognition
-------------------------------*/
+// /*-----------------------------
+//       Voice Recognition
+// ------------------------------*/
 
-// If false, the recording will stop after a few seconds of silence.
-// When true, the silence period is longer (about 15 seconds),
-// allowing us to keep recording even when the user pauses.
-recognition.continuous = true;
+// // If false, the recording will stop after a few seconds of silence.
+// // When true, the silence period is longer (about 15 seconds),
+// // allowing us to keep recording even when the user pauses.
+// recognition.continuous = true;
 
-// This block is called every time the Speech APi captures a line.
-recognition.onresult = function (event) {
+// // This block is called every time the Speech APi captures a line.
+// recognition.onresult = function (event) {
 
-    // event is a SpeechRecognitionEvent object.
-    // It holds all the lines we have captured so far.
-    // We only need the current one.
-    var current = event.resultIndex;
+//     // event is a SpeechRecognitionEvent object.
+//     // It holds all the lines we have captured so far.
+//     // We only need the current one.
+//     var current = event.resultIndex;
 
-    // Get a transcript of what was said.
-    var transcript = event.results[current][0].transcript;
+//     // Get a transcript of what was said.
+//     var transcript = event.results[current][0].transcript;
 
 
 
-    // Add the current transcript to the contents of our Note.
-    // There is a weird bug on mobile, where everything is repeated twice.
-    // There is no official solution so far so we have to handle an edge case.
-    var mobileRepeatBug = (current == 1 && transcript == event.results[0][0].transcript);
+//     // Add the current transcript to the contents of our Note.
+//     // There is a weird bug on mobile, where everything is repeated twice.
+//     // There is no official solution so far so we have to handle an edge case.
+//     var mobileRepeatBug = (current == 1 && transcript == event.results[0][0].transcript);
 
-    if (!mobileRepeatBug) {
-        createWordBubble(transcript);
-    }
-};
+//     if (!mobileRepeatBug) {
+//         createWordBubble(transcript);
+//     }
+// };
 
-const output = document.getElementById('output')
+// const output = document.getElementById('output')
 
-function createWordBubble(text) {
-    const bubble = document.createElement("div");
-    bubble.className = "bubble"
-    bubble.innerHTML = text;
-    output.appendChild(bubble);
-}
+// function createWordBubble(text) {
+//     const bubble = document.createElement("div");
+//     bubble.className = "bubble"
+//     bubble.innerHTML = text;
+//     output.appendChild(bubble);
+// }
 
-recognition.onstart = function () {
-    console.log('Voice recognition activated. Try speaking into the microphone.');
-}
+// recognition.onstart = function () {
+//     console.log('Voice recognition activated. Try speaking into the microphone.');
+// }
 
-recognition.onspeechend = function () {
-    console.log('You were quiet for a while so voice recognition turned itself off.');
-}
+// recognition.onspeechend = function () {
+//     console.log('You were quiet for a while so voice recognition turned itself off.');
+// }
 
-recognition.onerror = function (event) {
-    if (event.error == 'no-speech') {
-        console.log('No speech was detected. Try again.');
-    };
-}
+// recognition.onerror = function (event) {
+//     if (event.error == 'no-speech') {
+//         console.log('No speech was detected. Try again.');
+//     };
+// }
 
-function startSpeechRecognition() {
-    if (noteContent.length) {
-        noteContent += ' ';
-    }
-    recognition.start();
-}
+// function startSpeechRecognition() {
+//     if (noteContent.length) {
+//         noteContent += ' ';
+//     }
+//     recognition.start();
+// }
 
-function stopSpeechRecognition() {
-    recognition.stop();
-    console.log('Voice recognition paused.');
-}
+// function stopSpeechRecognition() {
+//     recognition.stop();
+//     console.log('Voice recognition paused.');
+// }
 
 /*
 Video stuff:
