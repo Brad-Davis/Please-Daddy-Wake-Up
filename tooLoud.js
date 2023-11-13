@@ -51,6 +51,7 @@
     // Use
     startButton.addEventListener('click', () => {
         daddyWoke = false;
+        difficulty = (100-document.getElementById('difSlider').value)/400
         startSpeechRecognition();
         hideModal();
         curReactionLevel = 0;
@@ -93,7 +94,7 @@ function showModal() {
 }
 
 let curVolRangeAvg = 0.0;
-let difficulty = 0.01;
+let difficulty = 0.08;
 
 function loudnessAnalysis(volume) {
     let curVolRange;
@@ -288,6 +289,28 @@ function setBarWhenComplete(isFull) {
         document.getElementById('volume-visualizer').classList.remove("volume-full");
     }
     
+}
+
+const slider = document.getElementById("difSlider");
+const childrenDifs = document.getElementById('difficulties').children
+
+slider.oninput = slideMove;
+
+
+function slideMove() {
+    const curVal = slider.value;
+    let showIndex;
+    if (curVal < 25){
+        showIndex = 0;
+    } else if (curVal < 75){
+        showIndex = 1;
+    } else {
+        showIndex = 2;
+    }
+    
+    for (let i = 0; i < childrenDifs.length; i++) {
+        childrenDifs[i].style.display = i === showIndex ? "block" : "none";
+    }
 }
 
 let volumeMeter = 0;

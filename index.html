@@ -13,6 +13,10 @@
 </head>
 
 <body>
+    <audio loop autoplay>
+        <source src="./audio/room.mp3" type="audio/mpeg">
+        Your browser does not support the audio element.
+      </audio>
     <video id="sleepVid" webkit-playsinline playsinline >
         <source src="./videos/1.mp4" type="video/mp4">
         Your browser does not support HTML video.
@@ -42,9 +46,20 @@
                 <a href="#" id="playAgain">Play Again?</a>
             </div>
         </div>
+        <div class="slidecontainer">
+            <br>
+            Difficulty
+            <input id="difSlider" type="range" min="1" max="99"  class="slider" id="myRange">
+       
+            <div id="difficulties">
+                <p style="display:none">Easy (daddy's restless)</p>
+                <p>Medium (daddy's sleepy)</p>
+                <p style="display:none">Hard (daddy may or may not be alive)</p>
+            </div>
+        </div>
         <h4>Made by <a href="https://alexvrahas.com/">Alex Vrahas</a> and <a href="https://bradcampdavis.com/">Brad
                 Davis</a></h4>
-        <p class="subtext">You will need to allow audio access</p>
+        <p class="subtext">You will need to allow audio access, and please turn on your volume for full experience!</p>
     </div>
 
     <div id="output">
