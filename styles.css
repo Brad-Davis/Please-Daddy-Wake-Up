@@ -146,7 +146,7 @@ h3 {
     border: 0.5em solid white;
     z-index: 5;
     color: white;
-    overflow: scroll;
+    overflow-x: hidden;
 }
 
 .bigShake {
@@ -263,15 +263,6 @@ h3 {
     }
 }
 
-@media only screen and (max-width: 600px) {
-
-  }
-
-
-#start{
-
-}
-
 #modal h4 a{
     color: white;
     font-weight: bold;
@@ -280,3 +271,11 @@ h3 {
 #PlayAgain{
     display: none;
 }
+
+/* If the screen size is 600px wide or less, set the font-size of <div> to 30px */
+@media screen and (max-height: 500px) {
+    #modal{
+
+        overflow-y: scroll;
+    }
+  }
