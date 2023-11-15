@@ -146,6 +146,7 @@ h3 {
     border: 0.5em solid white;
     z-index: 5;
     color: white;
+    overflow: scroll;
 }
 
 .bigShake {
