@@ -232,7 +232,14 @@ const allVids = [sleepVid, quietVid, loudVid, wakeVid];
 
 function startVideo() {
     startVid();
-    document.getElementById('room').play();
+    const roomAudio = document.getElementById('room');
+    roomAudio.play();
+    
+    // Handle looping manually for mobile compatibility
+    roomAudio.addEventListener('ended', function() {
+        this.currentTime = 0;
+        this.play();
+    });
 }
 
 let curVideoPlaying = null;
