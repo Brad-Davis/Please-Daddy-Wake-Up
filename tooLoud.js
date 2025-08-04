@@ -82,6 +82,20 @@
         }
     })
 })();
+
+// Set up room audio looping once on initialization
+const roomAudio = document.getElementById('room');
+roomAudio.addEventListener('ended', function() {
+    console.log('Room audio ended, restarting...');
+    this.currentTime = 0;
+    const playPromise = this.play();
+    if (playPromise !== undefined) {
+        playPromise.catch(error => {
+            console.error('Failed to restart room audio:', error);
+        });
+    }
+});
+
 let volRange = 0;
 let timeAtVol = 0;
 let timeAtDifVol = 0;
@@ -233,13 +247,16 @@ const allVids = [sleepVid, quietVid, loudVid, wakeVid];
 function startVideo() {
     startVid();
     const roomAudio = document.getElementById('room');
-    roomAudio.play();
     
-    // Handle looping manually for mobile compatibility
-    roomAudio.addEventListener('ended', function() {
-        this.currentTime = 0;
-        this.play();
-    });
+    // Handle play() promise for mobile compatibility
+    const playPromise = roomAudio.play();
+    if (playPromise !== undefined) {
+        playPromise.then(() => {
+            console.log('Room audio started successfully');
+        }).catch(error => {
+            console.error('Failed to play room audio:', error);
+        });
+    }
 }
 
 let curVideoPlaying = null;
