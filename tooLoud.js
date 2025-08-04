@@ -3,7 +3,7 @@
     let volumeInterval = null;
     const volumeVisualizer = document.getElementById('volume-visualizer');
     const startButton = document.getElementById('start');
-    const playAgainButton = document.getElementById('playAgain');
+    const playAgainButton = document.getElementById('playAgainButton');
     // Initialize
     try {
         const audioStream = await navigator.mediaDevices.getUserMedia({
@@ -227,6 +227,7 @@ const allVids = [sleepVid, quietVid, loudVid, wakeVid];
 
 function startVideo() {
     startVid();
+    document.getElementById('room').play();
 }
 
 let curVideoPlaying = null;
@@ -276,6 +277,8 @@ function startVid() {
 
 function showModalOnWin() {
     document.getElementById("daddyTitle").innerHTML = "Thanks For Waking Papa <3 <br> I thought for sure he was dead."
+    document.getElementById("pissAd").style.display = "flex";
+    document.getElementById("playAgainButton").style.fontSize = "10px";
     document.getElementById("Start").style.display = "none";
     document.getElementsByClassName('subtext')[0].style.display = "none";
     document.getElementById("PlayAgain").style.display = "inline-block";

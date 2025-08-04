@@ -13,7 +13,7 @@
 </head>
 
 <body>
-    <audio loop autoplay>
+    <audio id="room" loop autoplay>
         <source src="./audio/room.mp3" type="audio/mpeg">
         Your browser does not support the audio element.
       </audio>
@@ -42,9 +42,13 @@
             <div class="button" id="Start">
                 <a href="#" id="start">Start!</a>
             </div>
-            <div class="button" id="PlayAgain">
-                <a href="#" id="playAgain">Play Again?</a>
+            <div id="PlayAgain">
+                <div class="button" id="playAgainButton">
+                    <a href="#" id="playAgain">Play Again?</a>
+                </div>
+
             </div>
+            
         </div>
         <div class="slidecontainer">
             <br>
@@ -57,13 +61,26 @@
                 <p style="display:none; color: red;">Hard (daddy may or may not be alive)</p>
             </div>
         </div>
-        <h4>Made by <a href="https://alexvrahas.com/">Alex Vrahas</a> and <a href="https://bradcampdavis.com/">Brad
-                Davis</a></h4>
+        <h4>Made by <a href="https://alexvrahas.com/">Alex Vrahas</a> and <a href="https://www.instagram.com/bcd_rom/">Bradley CD</a></h4>
         <p class="subtext">You will need to allow audio access, and please turn on your volume for full experience!</p>
     </div>
 
     <div id="output">
     </div>
+    <div id="phoneWarning">if u see this u could turn ur phone sideways if u care about the experience or whatever...</div>
+
+    <div id="pissAd">
+        <a href="https://distrokid.com/hyperfollow/bradleycd/piss">
+            <img class="pissAdImg" src="./imgs/cd2.jpeg" alt="piss cd cover">
+            <p>NEXT CD DROPPING <br>AUG 26th<br><br>click to save</p>
+        </a>
+
+        <a href="https://distrokid.com/hyperfollow/bradleycd/piss">
+            <img class="pissAdImg" src="./imgs/cd2.jpeg" alt="piss cd cover">
+            <p>NEXT CD DROPPING <br>AUG 26th<br><br>click to save</p>
+        </a>
+    </div>
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="tooLoud.js"></script>
 </body>
