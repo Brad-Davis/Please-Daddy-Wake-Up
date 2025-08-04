@@ -66,6 +66,11 @@
     });
     playAgainButton.addEventListener('click', () => {
         daddyWoke = false;
+        const pissAd = document.getElementById("pissAd");
+        if (pissAd && pissAd.style.display === "flex") {
+            pissAd.style.display = "none";
+        }
+
         hideModal();
         volumeMeter = 0;
         curReactionLevel = 0;
